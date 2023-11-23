@@ -37,11 +37,15 @@ public class RabbitMQConection {
 
         DirectExchange troca = this.trocaDireta();
 
-        Binding ligacao = this.relacionamento(filaEstoque,troca);
-
+        Binding ligacaoEstoque = this.relacionamento(filaEstoque,troca);
+        Binding ligacaoPreco = this.relacionamento(filaEstoque,troca);
         //Criando as filas no Rabbitmq
         this.amqpAdmin.declareQueue(filaEstoque);
         this.amqpAdmin.declareQueue(filaPreco);
+
+        this.amqpAdmin.declareExchange(troca);
+
+        this.amqpAdmin.declareBinding(ligacao);
     }
 
 }
